@@ -1,0 +1,176 @@
+#include <math.h>
+#include <stdlib.h>
+#include "s21_math.h"
+
+#test abs_1
+    int array[] = {5, -1235, 12425647, -9999999, -124, 2368, -14, 88, 9543, -169843, S21_INFINITY, -S21_INFINITY};
+    for (int i = 0; i < 13; i++) {
+    ck_assert_int_eq(abs(array[i]), s21_abs(array[i]));
+    }
+
+#test acos_2
+    double array[] = {0.123456, 0.000345, -1.0, 1.0, -0.123456, -0.000345, -0.789013, 0.5, 0.3925, 0.0};
+    for (int i = 0; i < 10; i++) {
+        ck_assert_double_eq_tol(acos(array[i]), s21_acos(array[i]), 1e-6); 
+    }
+    ck_assert_double_nan(s21_acos(S21_NAN));
+
+#test asin_3
+    double array[] = {0.123456, 0.000345, -1.0, 1.0, -0.123456, -0.000345, -0.789013, 0.5, 0.3925, 0.0};
+    for (int i = 0; i < 10; i++) {
+        ck_assert_double_eq_tol(asin(array[i]), s21_asin(array[i]), 1e-6); 
+    }
+    ck_assert_double_nan(s21_asin(S21_NAN));
+
+#test atan_4
+    double array[] = {0.123456, 0.000345, -1.0, 1.0, -0.123456, -0.000345, -0.789013, 0.5, 0.3925, 0.0};
+    for (int i = 0; i < 10; i++) {
+    ck_assert_double_eq_tol(atan(array[i]), s21_atan(array[i]), 1e-6); 
+    }
+
+#test ceil_5
+    double array[] = {0, 1110.123456, 232550.000345, -14.0256, 1.0235, -236610.123456, -133621.000345, -123566.789013, 0.5, 124.3925, 0.0, 1.0};
+    for (int i = 0; i < 12; i++) {
+        ck_assert_double_eq_tol(ceil(array[i]), s21_ceil(array[i]), 1e-6); 
+    }
+    ck_assert_double_nan(s21_ceil(S21_NAN));
+    ck_assert_double_infinite(s21_ceil(S21_INFINITY));
+    ck_assert_double_infinite(s21_ceil(-S21_INFINITY));
+    
+
+#test cos_6
+    double array[] = {1110.123456, 232550.000345, -14.0256, 1.0235, -236610.123456, -133621.000345, -123566.789013, 0.5, 124.3925, 0.0};
+    for (int i = 0; i < 10; i++) {
+        ck_assert_double_eq_tol(cos(array[i]), s21_cos(array[i]), 1e-6); 
+    }
+
+#test exp_7
+    double array[] = {0.123456, 0.000345, -1.0, 1.0, -0.123456, -0.000345, -0.789013, 0.5, 0.3925, 0.0, -S21_INFINITY, - 1473};
+    for (int i = 0; i < 12; i++) {
+        ck_assert_double_eq_tol(exp(array[i]), s21_exp(array[i]), 1e-6); 
+    }
+    ck_assert_double_infinite(s21_exp(S21_INFINITY));
+    ck_assert_double_infinite(s21_exp(2345));
+    ck_assert_double_nan(s21_exp(S21_NAN));
+
+#test fabs_8
+    double array[] = {1110.123456, 232550.000345, -14.0256, 1.0235, -236610.123456, -133621.000345, -123566.789013, 0.5, 124.3925, 0.0};
+    for (int i = 0; i < 10; i++) {
+        ck_assert_double_eq_tol(fabs(array[i]), s21_fabs(array[i]), 1e-6); 
+    }
+
+#test floor_9
+    double array[] = {1110.123456, 232550.000345, -14.0256, 1.0235, -236610.123456, -133621.000345, -123566.789013, 0.5, 124.3925, 0.0, 1.0};
+    for (int i = 0; i < 11; i++) {
+        ck_assert_double_eq_tol(floor(array[i]), s21_floor(array[i]), 1e-6); 
+    }
+    ck_assert_double_infinite(s21_floor(S21_INFINITY));
+    ck_assert_double_nan(s21_floor(S21_NAN));
+
+
+#test fmod_10
+    double array_1[] = {1110.123456, 232550.000345, -14.0256, 1.0235, -236610.123456, -133621.000345, -123566.789013, 0.5, 124.3925, 0.0};
+    double array_2[] = {0.123456, 0.000345, -1.0, 1.0, -0.123456, -0.000345, -0.789013, 0.5, 0.3925, 10.0356};
+    for (int i = 0; i < 10; i++) {
+        ck_assert_double_eq_tol(fmod(array_1[i], array_2[i]), s21_fmod(array_1[i], array_2[i]), 1e-6); 
+    }
+
+#test log_11
+    double array[] = {1110.123456, 23.000345, 14.0256, 1.0235, 2366.123456, 133.000345, 1235.789013, 0.5241, 124.3925, 0.01356};
+    for (int i = 0; i < 10; i++) {
+        ck_assert_double_eq_tol(log(array[i]), s21_log(array[i]), 1e-6); 
+    }
+    ck_assert_double_infinite(s21_log(S21_INFINITY));
+    ck_assert_double_infinite(s21_log(0.0));
+    ck_assert_double_nan(s21_log(S21_NAN));
+    ck_assert_double_nan(s21_log(-1000));
+
+#test pow_12
+    double array_1[] = {111.123456, 232.000345, -14.0256, 1.0235, 2310.123456, 1321.000345, 116.789013, 0.5, 124.3925, 0.0, 1.0L, 2};
+    double array_2[] = {0.123456, 2.0, -1.0, 1.0, -0.123456, -0.0345, -0.789013, 0.5, 0.3925, 10.0356, 2.0, 0.0L};
+    for (int i = 0; i < 12; i++) {
+        ck_assert_double_eq_tol(pow(array_1[i], array_2[i]), s21_pow(array_1[i], array_2[i]), 1e-6); 
+    }
+    ck_assert_double_eq_tol(pow(0.0L, 2.0), s21_pow(0.0L, 2.0), 1e-6);
+    ck_assert_double_eq_tol(pow(0.0L, 1.0), s21_pow(0.0L, 1.0), 1e-6);
+    ck_assert_double_infinite(s21_pow(0.0L, -2.0));
+    ck_assert_double_infinite(s21_pow(0.0L, -0.245));
+    ck_assert_ldouble_infinite(s21_pow(0., -3));
+    
+    ck_assert_ldouble_eq(s21_pow(0., -2), pow(0., -2));
+    ck_assert_ldouble_eq(s21_pow(0., -2.5), pow(0., -2.5));
+    ck_assert_ldouble_eq(s21_pow(-0., -1. / 0.), pow(-0., -1. / 0.));
+    ck_assert_ldouble_eq(s21_pow(0., -1. / 0.), pow(0., -1. / 0.));
+
+    ck_assert_ldouble_eq_tol(s21_pow(0., 3), pow(0., 3), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(-0., 3), pow(-0., 3), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(0., 2), pow(0., 2), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(-0., 2), pow(-0., 2), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(0., 2.5), pow(0., 2.5), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(-0., 2.5), pow(-0., 2.5), 1e-16);
+
+    ck_assert_ldouble_eq_tol(s21_pow(-1., 1. / 0.), pow(-1., 1. / 0.), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(-1., -1. / 0.), pow(-1., -1. / 0.), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(1., 1. / 0.), pow(1., 1. / 0.), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(1., -1. / 0.), pow(1., -1. / 0.), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(1, 0. / 0.), pow(1, 0. / 0.), 1e-16);
+
+    ck_assert_ldouble_eq_tol(s21_pow(2., 0), pow(2., 0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(2., -0), pow(2., -0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(1. / 0., 0), pow(1. / 0., 0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(1. / 0., -0), pow(1. / 0., -0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(-1. / 0., 0), pow(-1. / 0., 0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(-1. / 0., -0), pow(-1. / 0., -0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(0., 0), pow(0., 0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(0., -0), pow(0., -0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(0., 0), pow(0., 0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(-0., 0), pow(-0., 0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(0. / 0., 0), pow(0. / 0., 0), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(0. / 0., 0), pow(0. / 0., 0), 1e-16);
+
+    ck_assert_ldouble_nan(s21_pow(-5., 2.5));
+    ck_assert_ldouble_nan(s21_pow(-5., -2.5));
+
+    ck_assert_ldouble_eq_tol(s21_pow(5., -1. / 0.), pow(5., -1. / 0.), 1e-16);
+    ck_assert_ldouble_eq(s21_pow(0.5, -1. / 0.), pow(0.5, -1. / 0.));
+    ck_assert_ldouble_eq_tol(s21_pow(-5., -1. / 0.), pow(-5., -1. / 0.), 1e-16);
+    ck_assert_ldouble_eq(s21_pow(-0.5, -1. / 0.), pow(-0.5, -1. / 0.));
+    ck_assert_ldouble_eq(s21_pow(5., -1. / 0.), pow(5., -1. / 0.));
+    ck_assert_ldouble_eq_tol(s21_pow(0.5, 1. / 0.), pow(0.5, 1. / 0.), 1e-16);
+    ck_assert_ldouble_eq(s21_pow(-5., 1. / 0.), pow(-5., 1. / 0.));
+    ck_assert_ldouble_eq_tol(s21_pow(-0.5, 1. / 0.), pow(-0.5, 1. / 0.), 1e-16);
+
+    ck_assert_ldouble_eq_tol(s21_pow(-1. / 0., -5), pow(-1. / 0., -5), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(-1. / 0., -5.5), pow(-1. / 0., -5.5), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(-1. / 0., -6), pow(-1. / 0., -6), 1e-16);
+    ck_assert_ldouble_eq(s21_pow(-1. / 0., 5), pow(-1. / 0., 5));
+    ck_assert_ldouble_eq(s21_pow(-1. / 0., 5.5), pow(-1. / 0., 5.5));
+
+    ck_assert_ldouble_eq_tol(s21_pow(1. / 0., -5), pow(1. / 0., -5), 1e-16);
+    ck_assert_ldouble_eq_tol(s21_pow(1. / 0., -5.5), pow(1. / 0., -5.5), 1e-16);
+    ck_assert_ldouble_eq(s21_pow(1. / 0., 5), pow(1. / 0., 5));
+    ck_assert_ldouble_eq(s21_pow(1. / 0., 5.5), pow(1. / 0., 5.5));
+
+    ck_assert_ldouble_nan(s21_pow(0. / 0., 0. / 0.));
+    ck_assert_ldouble_nan(s21_pow(0. / 0., 1));
+    ck_assert_ldouble_nan(s21_pow(0, 0. / 0.));
+
+#test sin_13
+    double array[] = {1110.123456, 232550.000345, -14.0256, 1.0235, -236610.123456, -133621.000345, -123566.789013, 0.5, 124.3925, 0.0};
+    for (int i = 0; i < 10; i++) {
+        ck_assert_double_eq_tol(sin(array[i]), s21_sin(array[i]), 1e-6); 
+    }
+
+#test sqrt_14
+    double array[] = {1110.123456, 232550.000345, 14.0256, 1.0235, 236610.123456, 133621.000345, 123566.789013, 0.5, 124.3925, 0.0};
+    for (int i = 0; i < 10; i++) {
+        ck_assert_double_eq_tol(sqrt(array[i]), s21_sqrt(array[i]), 1e-6); 
+    }
+    ck_assert_double_nan(s21_sqrt(-S21_INFINITY));
+    ck_assert_double_nan(s21_sqrt(-128));
+
+#test tan_15
+    double array[] = {1110.123456, 23.000345, 14.0256, 1.0235, 2366.123456, 133.000345, 1235.789013, 0.5241, 124.3925, 0.01356};
+    for (int i = 0; i < 10; i++) {
+        ck_assert_double_eq_tol(tan(array[i]), s21_tan(array[i]), 1e-6); 
+    }
